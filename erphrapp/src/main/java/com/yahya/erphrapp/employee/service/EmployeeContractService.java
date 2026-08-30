@@ -79,7 +79,7 @@ public class EmployeeContractService {
 
 
     public List<EmployeeContractResponse> getContractsForEmployee(Long empId) {
-        return employeeContractRepository.findById(empId)
+        return employeeContractRepository.findByEmployeeId(empId)
                 .stream()
                 .map(employeeContractMapper::toResponse)
                 .toList();
