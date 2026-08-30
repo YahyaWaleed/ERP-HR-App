@@ -5,34 +5,34 @@ import java.time.LocalDateTime;
 
 public class LoanInstallmentResponse {
 
-    private long id;
-    private long loanId;
-    private long payslipId;
+    private Long id;
+    private Long loanId;
+    private Long payslipId;
     private String periodCode;
     private BigDecimal amount;
     private LocalDateTime paidOn;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public long getLoanId() {
+    public Long getLoanId() {
         return loanId;
     }
 
-    public void setLoanId(long loanId) {
+    public void setLoanId(Long loanId) {
         this.loanId = loanId;
     }
 
-    public long getPayslipId() {
+    public Long getPayslipId() {
         return payslipId;
     }
 
-    public void setPayslipId(long payslipId) {
+    public void setPayslipId(Long payslipId) {
         this.payslipId = payslipId;
     }
 

@@ -1,7 +1,6 @@
 package com.yahya.erphrapp.organization.dto;
 
-import com.yahya.erphrapp.organization.entity.JobTitle;
-import jakarta.validation.constraints.NotBlank;
+import java.math.BigDecimal;
 
 public class JobTitleResponse {
 
@@ -14,11 +13,11 @@ public class JobTitleResponse {
     private String titleAr;
 
     public enum JobGrade {G1, G2, G3, G4, G5, G6, G7};
-    private JobTitle.JobGrade jobGrade;
+    private String jobGrade;
 
-    private double minSalary;
+    private BigDecimal minSalary;
 
-    private double maxSalary;
+    private BigDecimal maxSalary;
 
     private boolean isManagerial;
 
@@ -54,27 +53,27 @@ public class JobTitleResponse {
         this.titleAr = titleAr;
     }
 
-    public JobTitle.JobGrade getJobGrade() {
+    public String getJobGrade() {
         return jobGrade;
     }
 
-    public void setJobGrade(JobTitle.JobGrade jobGrade) {
+    public void setJobGrade(String jobGrade) {
         this.jobGrade = jobGrade;
     }
 
-    public double getMinSalary() {
+    public BigDecimal getMinSalary() {
         return minSalary;
     }
 
-    public void setMinSalary(double minSalary) {
+    public void setMinSalary(BigDecimal minSalary) {
         this.minSalary = minSalary;
     }
 
-    public double getMaxSalary() {
+    public BigDecimal getMaxSalary() {
         return maxSalary;
     }
 
-    public void setMaxSalary(double maxSalary) {
+    public void setMaxSalary(BigDecimal maxSalary) {
         this.maxSalary = maxSalary;
     }
 

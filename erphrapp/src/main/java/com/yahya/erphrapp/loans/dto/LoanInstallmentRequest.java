@@ -1,12 +1,5 @@
 package com.yahya.erphrapp.loans.dto;
 
-import com.yahya.erphrapp.loans.entity.Loan;
-import com.yahya.erphrapp.payroll.entity.Payslip;
-import jakarta.persistence.Column;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 

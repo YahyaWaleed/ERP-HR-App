@@ -1,35 +1,41 @@
 package com.yahya.erphrapp.loans.dto;
 
-import com.yahya.erphrapp.employee.entity.Employee;
-import com.yahya.erphrapp.loans.entity.Loan;
-import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class LoanRequest {
 
-
-
-
+    @NotNull
     private Long empId;
 
+    @NotBlank
     private String type;
 
+    @NotNull
     private BigDecimal principalAmount;
 
+    @NotNull
     private int installmentsCount;
 
+    @NotNull
     private BigDecimal monthlyInstallment;
 
+    @NotNull
     private BigDecimal remainingBalance;
 
+    @NotBlank
     private String startPeriod;
 
+    @NotNull
     private Long approvedById;
 
+    @NotBlank
     private String status;
 
+    @NotNull
     private LocalDate requestDate;
 
     public Long getEmpId() {

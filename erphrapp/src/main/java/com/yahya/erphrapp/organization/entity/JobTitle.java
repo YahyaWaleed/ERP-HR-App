@@ -2,6 +2,8 @@ package com.yahya.erphrapp.organization.entity;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "job_titles")
 public class JobTitle {
@@ -26,17 +28,17 @@ public class JobTitle {
     private JobGrade jobGrade;
 
     @Column(name = "min_salary")
-    private double minSalary;
+    private BigDecimal minSalary;
 
     @Column(name = "max_salary")
-    private double maxSalary;
+    private BigDecimal maxSalary;
 
     @Column(name = "is_managerial")
     private boolean isManagerial;
 
     public JobTitle() {}
 
-    public JobTitle(String code, Long id, String titleEn, String titleAr, JobGrade jobGrade, double minSalary, double maxSalary, boolean isManagerial) {
+    public JobTitle(String code, Long id, String titleEn, String titleAr, JobGrade jobGrade, BigDecimal minSalary, BigDecimal maxSalary, boolean isManagerial) {
         this.code = code;
         this.id = id;
         this.titleEn = titleEn;
@@ -55,19 +57,19 @@ public class JobTitle {
         isManagerial = managerial;
     }
 
-    public double getMaxSalary() {
+    public BigDecimal getMaxSalary() {
         return maxSalary;
     }
 
-    public void setMaxSalary(double maxSalary) {
+    public void setMaxSalary(BigDecimal maxSalary) {
         this.maxSalary = maxSalary;
     }
 
-    public double getMinSalary() {
+    public BigDecimal getMinSalary() {
         return minSalary;
     }
 
-    public void setMinSalary(double minSalary) {
+    public void setMinSalary(BigDecimal minSalary) {
         this.minSalary = minSalary;
     }
 
