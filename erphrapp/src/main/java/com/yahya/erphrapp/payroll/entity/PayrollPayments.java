@@ -1,11 +1,9 @@
 package com.yahya.erphrapp.payroll.entity;
 
 import jakarta.persistence.*;
-import org.hibernate.validator.constraints.br.CPF;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 
 @Entity
 @Table(name = "payroll_payments")

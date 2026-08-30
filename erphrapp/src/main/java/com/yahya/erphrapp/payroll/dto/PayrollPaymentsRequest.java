@@ -1,14 +1,12 @@
 package com.yahya.erphrapp.payroll.dto;
 
-import com.yahya.erphrapp.payroll.entity.PayrollPayments;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 
 public class PayrollPaymentsRequest {
 
