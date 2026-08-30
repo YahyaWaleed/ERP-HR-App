@@ -6,12 +6,14 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class PayrollPaymentsRequest {
 
     @NotNull
-    private long payslipId;
+    private Long payslipId;
 
     @NotNull
     private String  method;
@@ -24,19 +26,19 @@ public class PayrollPaymentsRequest {
 
     @NotNull
     @Positive
-    private double amount;
+    private BigDecimal amount;
 
     @NotNull
-    private LocalDateTime paidOn;
+    private LocalDate paidOn;
 
     @NotBlank
     private String reference;
 
-    public long getPayslipId() {
+    public Long getPayslipId() {
         return payslipId;
     }
 
-    public void setPayslipId(long payslipId) {
+    public void setPayslipId(Long payslipId) {
         this.payslipId = payslipId;
     }
 
@@ -64,19 +66,19 @@ public class PayrollPaymentsRequest {
         this.bankAccount = bankAccount;
     }
 
-    public double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
-    public LocalDateTime getPaidOn() {
+    public LocalDate getPaidOn() {
         return paidOn;
     }
 
-    public void setPaidOn(LocalDateTime paidOn) {
+    public void setPaidOn(LocalDate paidOn) {
         this.paidOn = paidOn;
     }
 

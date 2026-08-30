@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface PayrollPaymentsRepository extends JpaRepository<PayrollPayments,Long> {
 
-    List<PayrollPayments> findByPaySlipPeriodCode(String periodCode);
+    List<PayrollPayments> findByPayslipPeriodPeriodCode(String periodCode);
     Optional<PayrollPayments> findByPayslipId(Long payslipId);
 }

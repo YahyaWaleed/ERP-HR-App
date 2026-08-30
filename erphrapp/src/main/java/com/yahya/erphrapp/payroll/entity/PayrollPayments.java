@@ -3,6 +3,7 @@ package com.yahya.erphrapp.payroll.entity;
 import jakarta.persistence.*;
 import org.hibernate.validator.constraints.br.CPF;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -14,9 +15,6 @@ public class PayrollPayments {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "payment_id")
     private Long id;
-
-    @Column(name = "payslip_id")
-    private Long payslipId;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "payslip_id", nullable = false, unique = true)
@@ -37,10 +35,10 @@ public class PayrollPayments {
     private String bankAccount;
 
     @Column(name = "amount", nullable = false)
-    private double amount;
+    private BigDecimal amount;
 
     @Column(name = "paid_on", nullable = false)
-    private LocalDateTime paidOn;
+    private LocalDate paidOn;
 
     @Column(name = "reference")
     private String reference;
@@ -51,14 +49,6 @@ public class PayrollPayments {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getPayslipId() {
-        return payslipId;
-    }
-
-    public void setPayslipId(Long payslipId) {
-        this.payslipId = payslipId;
     }
 
     public Payslip getPayslip() {
@@ -93,19 +83,19 @@ public class PayrollPayments {
         this.bankAccount = bankAccount;
     }
 
-    public double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
-    public LocalDateTime getPaidOn() {
+    public LocalDate getPaidOn() {
         return paidOn;
     }
 
-    public void setPaidOn(LocalDateTime paidOn) {
+    public void setPaidOn(LocalDate paidOn) {
         this.paidOn = paidOn;
     }
 

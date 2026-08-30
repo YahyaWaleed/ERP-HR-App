@@ -29,7 +29,7 @@ public class PayrollPaymentsService {
 
     // read all payments made in a specific period
     public List<PayrollPaymentsResponse> getPaymentsForPeriod(String periodCode) {
-        List<PayrollPayments> payments = payrollPaymentsRepository.findByPaySlipPeriodCode(periodCode);
+        List<PayrollPayments> payments = payrollPaymentsRepository.findByPayslipPeriodPeriodCode(periodCode);
         return payments.stream().map(payrollPaymentsMapper::toResponse).toList();
     }
 
