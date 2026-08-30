@@ -21,12 +21,12 @@ public class EmployeeSalaryComponentService {
     private final EmployeeSalaryComponentRepository employeeSalaryComponentRepository;
     private final EmployeeSalaryComponentMapper employeeSalaryComponentMapper;
     private final EmployeeRepository employeeRepository;
-    private final EmployeeSalaryComponentRepository salaryComponentRepository;
+    private final SalaryComponentRepository salaryComponentRepository;
 
     public EmployeeSalaryComponentService(EmployeeSalaryComponentRepository employeeSalaryComponentRepository,
                                           EmployeeSalaryComponentMapper employeeSalaryComponentMapper,
                                           EmployeeRepository employeeRepository,
-                                          EmployeeSalaryComponentRepository salaryComponentRepository) {
+                                          SalaryComponentRepository salaryComponentRepository) {
         this.employeeSalaryComponentRepository = employeeSalaryComponentRepository;
         this.employeeSalaryComponentMapper = employeeSalaryComponentMapper;
         this.employeeRepository = employeeRepository;
@@ -47,12 +47,12 @@ public class EmployeeSalaryComponentService {
         Employee employee = employeeRepository.findById(empId)
                 .orElseThrow(() -> new ResourceNotFoundException("Employee", empId));
 
-        EmployeeSalaryComponent salaryComponent = salaryComponentRepository.findById(request.getCompId())
+        SalaryComponent salaryComponent = salaryComponentRepository.findById(request.getCompId())
                 .orElseThrow(() -> new ResourceNotFoundException("Salary Component", request.getCompId()));
 
         EmployeeSalaryComponent component = employeeSalaryComponentMapper.toEntity(request);
         component.setEmployee(employee);
-        component.setSalaryComponent(salaryComponent.getSalaryComponent());
+        component.setSalaryComponent(salaryComponent);
 
         employeeSalaryComponentRepository.save(component);
         return employeeSalaryComponentMapper.toResponse(component);
@@ -64,10 +64,10 @@ public class EmployeeSalaryComponentService {
         EmployeeSalaryComponent component = employeeSalaryComponentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Employee Salary Component", id));
 
-        EmployeeSalaryComponent salaryComponent = salaryComponentRepository.findById(request.getCompId())
+        SalaryComponent salaryComponent = salaryComponentRepository.findById(request.getCompId())
                 .orElseThrow(() -> new ResourceNotFoundException("Salary Component", request.getCompId()));
 
-        component.setSalaryComponent(salaryComponent.getSalaryComponent());
+        component.setSalaryComponent(salaryComponent);
         component.setAmount(request.getAmount());
         component.setPercentage(request.getPercentage());
         component.setEffectiveFrom(request.getEffectiveFrom());
