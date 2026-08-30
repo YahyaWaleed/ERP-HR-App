@@ -1,6 +1,7 @@
 package com.yahya.erphrapp.loans.dto;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class LoanInstallmentRequest {
@@ -9,7 +10,7 @@ public class LoanInstallmentRequest {
     private long payslipId;
     private String periodCode;
     private BigDecimal amount;
-    private LocalDateTime paidOn;
+    private LocalDate paidOn;
 
     public long getLoanId() {
         return loanId;
@@ -43,11 +44,11 @@ public class LoanInstallmentRequest {
         this.amount = amount;
     }
 
-    public LocalDateTime getPaidOn() {
+    public LocalDate getPaidOn() {
         return paidOn;
     }
 
-    public void setPaidOn(LocalDateTime paidOn) {
+    public void setPaidOn(LocalDate paidOn) {
         this.paidOn = paidOn;
     }
 }
