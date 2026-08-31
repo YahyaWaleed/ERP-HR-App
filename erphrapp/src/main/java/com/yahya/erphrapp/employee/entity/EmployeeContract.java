@@ -96,7 +96,7 @@ public class EmployeeContract {
     public int getProbationMonths() { return probationMonths; }
     public void setProbationMonths(int probationMonths) { this.probationMonths = probationMonths; }
 
-    public String getStatus() { return status; }
+    public ContractStatus getStatus() { return status; }
     public void setStatus(ContractStatus status) { this.status = status; }
 
     public String getNotes() { return notes; }
