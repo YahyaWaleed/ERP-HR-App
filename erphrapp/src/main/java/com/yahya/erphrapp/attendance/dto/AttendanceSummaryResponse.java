@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 
 public class AttendanceSummaryResponse {
     private Integer id;
-    private Integer periodId;
-    private Integer empId;
+    private Long periodId;
+    private Long empId;
     private BigDecimal workingDays;
     private BigDecimal presentDays;
     private BigDecimal paidLeaveDays;
@@ -23,19 +23,19 @@ public class AttendanceSummaryResponse {
         this.id = id;
     }
 
-    public Integer getPeriodId() {
+    public Long getPeriodId() {
         return periodId;
     }
 
-    public void setPeriodId(Integer periodId) {
+    public void setPeriodId(Long periodId) {
         this.periodId = periodId;
     }
 
-    public Integer getEmpId() {
+    public Long getEmpId() {
         return empId;
     }
 
-    public void setEmpId(Integer empId) {
+    public void setEmpId(Long empId) {
         this.empId = empId;
     }
 

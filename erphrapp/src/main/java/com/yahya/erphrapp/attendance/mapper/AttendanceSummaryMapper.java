@@ -9,6 +9,6 @@ import org.mapstruct.Mapping;
 public interface AttendanceSummaryMapper {
 
     @Mapping(source = "employee.id", target = "empId")
-    @Mapping(source = "payrollPeriod.periodCode", target = "periodId")
+    @Mapping(source = "payrollPeriod.id", target = "periodId")
     AttendanceSummaryResponse toResponse(AttendanceSummary attendanceSummary);
 }
