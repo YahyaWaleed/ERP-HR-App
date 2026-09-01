@@ -9,6 +9,7 @@ import com.yahya.erphrapp.leaves.entity.LeaveRequest;
 import com.yahya.erphrapp.leaves.service.LeaveRequestService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.Positive;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -43,24 +44,28 @@ public class LeaveRequestController {
 
     // create a leave  request for an employee by emp ID
     @PostMapping("/employees/{empId}/leaves ")
+    @PreAuthorize("hasRole('HR_ADMIN')")
     public LeaveRequestResponse createLeaveRequest(@PathVariable Long empId, @RequestBody LeaveRequestRequest leaveRequestRequest) {
         return leaveRequestService.createLeaveRequest(empId, leaveRequestRequest);
     }
 
     // cancel a leave request
     @PostMapping("leaves/{requestId}/cancel")
+    @PreAuthorize("hasRole('HR_ADMIN')")
     public void cancelRequest(@PathVariable Long requestId) {
         leaveRequestService.cancelRequest(requestId);
     }
 
     // approve a leave request
     @PostMapping("/leaves/{requestId}/approve")
+    @PreAuthorize("hasRole('HR_ADMIN')")
     public void approveRequest(@PathVariable Long requestId) {
         leaveRequestService.approveRequest(requestId);
     }
 
     // reject a leave request
     @PostMapping("/leaves/{requestId}/reject")
+    @PreAuthorize("hasRole('HR_ADMIN')")
     public void rejectRequest(@PathVariable Long requestId, @RequestBody RejectLeaveRequest rejectLeaveRequest) {
         leaveRequestService.rejectRequest(requestId,rejectLeaveRequest);
     }

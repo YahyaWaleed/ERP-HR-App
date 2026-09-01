@@ -5,6 +5,7 @@ import com.yahya.erphrapp.loans.dto.LoanRequest;
 import com.yahya.erphrapp.loans.dto.LoanResponse;
 import com.yahya.erphrapp.loans.service.LoanService;
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,6 +33,7 @@ public class LoanController {
 
     // create new loan
     @PostMapping("/loans")
+    @PreAuthorize("hasRole('HR_ADMIN')")
     public LoanResponse createLoan(@RequestBody @Valid LoanRequest loanRequest) {
         return loanService.createLoan(loanRequest);
     }
@@ -44,12 +46,14 @@ public class LoanController {
 
     // close loan
     @PatchMapping("/loans/{loanId}/close")
+    @PreAuthorize("hasRole('HR_ADMIN')")
     public void closeLoan(@PathVariable Long loanId) {
         loanService.closeLoan(loanId);
     }
 
     // cancel loan
     @PatchMapping("/loans/{loanId}/cancel")
+    @PreAuthorize("hasRole('HR_ADMIN')")
     public void cancelLoan(@PathVariable Long loanId) {
         loanService.cancelLoan(loanId);
     }

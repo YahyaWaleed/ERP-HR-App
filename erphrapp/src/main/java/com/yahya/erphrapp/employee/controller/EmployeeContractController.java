@@ -6,6 +6,7 @@ import com.yahya.erphrapp.employee.entity.Employee;
 import com.yahya.erphrapp.employee.entity.EmployeeContract;
 import com.yahya.erphrapp.employee.service.EmployeeContractService;
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,12 +41,14 @@ public class EmployeeContractController {
 
     // create new contract
     @PostMapping("/employees/{id}/contracts")
+    @PreAuthorize("hasRole('HR_ADMIN')")
     public EmployeeContractResponse createContract(@PathVariable Long id, @Valid @RequestBody EmployeeContractRequest employeeContractRequest) {
         return employeeContractService.createContract(id, employeeContractRequest);
     }
 
     // end a contract
     @PatchMapping("/contracts/{id}")
+    @PreAuthorize("hasRole('HR_ADMIN')")
     public void endContract(@PathVariable Long id) {
         employeeContractService.endContract(id);
     }

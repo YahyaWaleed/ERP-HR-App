@@ -4,6 +4,7 @@ import com.yahya.erphrapp.employee.dto.EmployeeSalaryComponentRequest;
 import com.yahya.erphrapp.employee.dto.EmployeeSalaryComponentResponse;
 import com.yahya.erphrapp.employee.service.EmployeeSalaryComponentService;
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public class EmployeeSalaryComponentController {
 
     // create a salary component for an employee
     @PostMapping("/employees/{empId}/salary-components")
+    @PreAuthorize("hasRole('HR_ADMIN')")
     public EmployeeSalaryComponentResponse createComponent(@PathVariable Long empId,
                                                            @Valid @RequestBody EmployeeSalaryComponentRequest request) {
         return employeeSalaryComponentService.createComponent(empId, request);
@@ -33,6 +35,7 @@ public class EmployeeSalaryComponentController {
 
     // update a salary component
     @PatchMapping("/salary-components/{id}")
+    @PreAuthorize("hasRole('HR_ADMIN')")
     public EmployeeSalaryComponentResponse updateComponent(@PathVariable Long id,
                                                            @Valid @RequestBody EmployeeSalaryComponentRequest request) {
         return employeeSalaryComponentService.updateComponent(id, request);
@@ -40,6 +43,7 @@ public class EmployeeSalaryComponentController {
 
     // delete a salary component
     @DeleteMapping("/salary-components/{id}")
+    @PreAuthorize("hasRole('HR_ADMIN')")
     public void deleteComponent(@PathVariable Long id) {
         employeeSalaryComponentService.deleteComponent(id);
     }

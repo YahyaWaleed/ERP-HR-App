@@ -4,6 +4,7 @@ import com.yahya.erphrapp.payroll.dto.PayrollPeriodRequest;
 import com.yahya.erphrapp.payroll.dto.PayrollPeriodResponse;
 import com.yahya.erphrapp.payroll.entity.PayrollPeriod;
 import com.yahya.erphrapp.payroll.service.PayrollPeriodService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,18 +39,21 @@ public class PayrollPeriodController {
 
     // create a new period
     @PostMapping("/payroll-periods")
+    @PreAuthorize("hasRole('HR_ADMIN')")
     public PayrollPeriodResponse createPeriod(@RequestBody PayrollPeriodRequest payrollPeriodRequest) {
         return payrollPeriodService.createPeriod(payrollPeriodRequest);
     }
 
     // run the payroll for a period
     @PostMapping("/payroll-periods/{periodCode}/run")
+    @PreAuthorize("hasRole('HR_ADMIN')")
     public void runPayroll(@PathVariable String periodCode) {
          payrollPeriodService.runPayroll(periodCode);
     }
 
     // pay the period
     @PostMapping("/payroll-periods/{periodCode}/pay")
+    @PreAuthorize("hasRole('HR_ADMIN')")
     public void payPeriod(@PathVariable String periodCode, @RequestParam String method) {
         payrollPeriodService.payPeriod(periodCode, method);
     }
