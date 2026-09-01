@@ -36,21 +36,21 @@ public class LeaveRequestController {
     }
 
     // read leave requests for an employee by employee ID
-    @GetMapping("/employees{empId}/leaves")
+    @GetMapping("/employees/{empId}/leaves")
     public List<LeaveRequestResponse> getLeaveRequestsByEmployeeId(@PathVariable Long empId) {
         return leaveRequestService.getLeaveRequestsByEmployeeId(empId);
     }
 
 
     // create a leave  request for an employee by emp ID
-    @PostMapping("/employees/{empId}/leaves ")
+    @PostMapping("/employees/{empId}/leaves")
     @PreAuthorize("hasRole('HR_ADMIN')")
     public LeaveRequestResponse createLeaveRequest(@PathVariable Long empId, @RequestBody LeaveRequestRequest leaveRequestRequest) {
         return leaveRequestService.createLeaveRequest(empId, leaveRequestRequest);
     }
 
     // cancel a leave request
-    @PostMapping("leaves/{requestId}/cancel")
+    @PostMapping("/leaves/{requestId}/cancel")
     @PreAuthorize("hasRole('HR_ADMIN')")
     public void cancelRequest(@PathVariable Long requestId) {
         leaveRequestService.cancelRequest(requestId);

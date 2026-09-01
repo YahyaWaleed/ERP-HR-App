@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 // setting up the OpenApi documentation
+@Configuration
 public class OpenApiConfig {
 
     @Bean

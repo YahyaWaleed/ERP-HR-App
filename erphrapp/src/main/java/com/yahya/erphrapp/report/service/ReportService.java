@@ -8,6 +8,7 @@ import  com.yahya.erphrapp.report.repository.ReportRepository;
 import com.yahya.erphrapp.report.dto.EmployeeDirectoryResponse;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -32,7 +33,7 @@ public class ReportService {
             d.setJobGrade((String) r[7]);
             d.setBranch((String) r[8]);
             d.setManager((String) r[9]);
-            d.setHireDate(((java.sql.Date) r[10]).toLocalDate());
+            d.setHireDate((LocalDate) r[10]);
             d.setYearsOfService(((Number) r[11]).intValue());
             d.setEmpStatus((String) r[12]);
             d.setContractType((String) r[13]);
@@ -64,7 +65,7 @@ public class ReportService {
             d.setPayslipId(((Number) r[0]).longValue());
             d.setPayslipNo((String) r[1]);
             d.setPeriodCode((String) r[2]);
-            d.setPayDate(((java.sql.Date) r[3]).toLocalDate());
+            d.setPayDate((LocalDate) r[3]);;
             d.setEmpCode((String) r[4]);
             d.setFullNameAr((String) r[5]);
             d.setDepartment((String) r[6]);
@@ -136,7 +137,7 @@ public class ReportService {
             d.setBankAccount((String) r[2]);
             d.setAmount((BigDecimal) r[3]);
             d.setReference((String) r[4]);
-            d.setPaidOn(((java.sql.Date) r[5]).toLocalDate());
+            d.setPaidOn((LocalDate) r[5]);;
             return d;
         }).toList();
     }
@@ -164,13 +165,13 @@ public class ReportService {
             d.setEmpCode((String) r[1]);
             d.setFullNameAr((String) r[2]);
             d.setLeaveType((String) r[3]);
-            d.setStartDate(((java.sql.Date) r[4]).toLocalDate());
-            d.setEndDate(((java.sql.Date) r[5]).toLocalDate());
+            d.setStartDate((LocalDate) r[4]);;
+            d.setEndDate((LocalDate) r[5]);;
             d.setDaysCount((BigDecimal) r[6]);
             d.setStatus((String) r[7]);
             d.setApprovedBy((String) r[8]);
-            d.setAppliedOn(((java.sql.Date) r[9]).toLocalDate());
-            d.setDecidedOn(r[10] != null ? ((java.sql.Date) r[10]).toLocalDate() : null);
+            d.setAppliedOn((LocalDate) r[9]);;
+            d.setDecidedOn(r[10] != null ? (LocalDate) r[10] : null);;
             d.setReason((String) r[11]);
             return d;
         }).toList();
@@ -224,8 +225,8 @@ public class ReportService {
             d.setFullNameAr((String) r[1]);
             d.setContractNo((String) r[2]);
             d.setContractType((String) r[3]);
-            d.setStartDate(((java.sql.Date) r[4]).toLocalDate());
-            d.setEndDate(((java.sql.Date) r[5]).toLocalDate());
+            d.setStartDate((LocalDate) r[4]);
+            d.setEndDate((LocalDate) r[5]);
             d.setDaysLeft(((Number) r[6]).longValue());
             return d;
         }).toList();
