@@ -8,9 +8,6 @@ import java.time.LocalDate;
 public class EmployeeRequest {
 
     @NotBlank
-    private String empCode;
-
-    @NotBlank
     private String fullNameAr;
 
     @NotBlank
@@ -61,9 +58,6 @@ public class EmployeeRequest {
     @NotNull
     @Valid
     private EmployeeContractRequest contract; // the first contract, bundled in
-
-    public String getEmpCode() { return empCode; }
-    public void setEmpCode(String empCode) { this.empCode = empCode; }
 
     public String getFullNameAr() { return fullNameAr; }
     public void setFullNameAr(String fullNameAr) { this.fullNameAr = fullNameAr; }

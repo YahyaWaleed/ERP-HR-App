@@ -9,9 +9,6 @@ import java.time.LocalDate;
 
 public class EmployeeContractRequest {
 
-    @NotBlank
-    private String contractNo;
-
     @NotNull
     private String contractType;
 
@@ -33,9 +30,6 @@ public class EmployeeContractRequest {
     private Integer probationMonths;
 
     private String notes;
-
-    public String getContractNo() { return contractNo; }
-    public void setContractNo(String contractNo) { this.contractNo = contractNo; }
 
     public String getContractType() { return contractType; }
     public void setContractType(String contractType) { this.contractType = contractType; }

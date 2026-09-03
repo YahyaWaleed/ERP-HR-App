@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmployeeContractService {
@@ -53,7 +54,10 @@ public class EmployeeContractService {
 
         EmployeeContract newContract = new EmployeeContract();
         newContract.setEmployee(employee);
-        newContract.setContractNo(employeeContractRequest.getContractNo());
+        employeeContractRepository.save(newContract);
+        int contractYear = newContract.getStartDate().getYear();
+        newContract.setContractNo(String.format("CT-%d-%03d", contractYear, empId));
+        employeeContractRepository.save(newContract);
         newContract.setContractType(EmployeeContract.ContractType.valueOf(employeeContractRequest.getContractType()));
         newContract.setStartDate(employeeContractRequest.getStartDate());
         newContract.setEndDate(employeeContractRequest.getEndDate());

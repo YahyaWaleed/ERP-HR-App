@@ -19,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class EmployeeService {
@@ -54,7 +56,6 @@ public class EmployeeService {
 
         Employee employee = new Employee();
 
-        employee.setEmpCode(employeeRequest.getEmpCode());
         employee.setFullNameAr(employeeRequest.getFullNameAr());
         employee.setFullNameEn(employeeRequest.getFullNameEn());
         employee.setAddress(employeeRequest.getAddress());
@@ -75,13 +76,16 @@ public class EmployeeService {
         employee.setJobTitle(title);
         employee.setGender(Employee.Gender.valueOf(employeeRequest.getGender()));
         employee.setEmpStatus(Employee.EmployeeStatus.ACTIVE);
+        employee.setEmpCode("TMP-" + UUID.randomUUID().toString().substring(0, 8));
+        employeeRepository.save(employee);
+        employee.setEmpCode(String.format("EMP-%04d", employee.getId()));
+
 
         // create the contract for the employee
         EmployeeContract employeeContract = new EmployeeContract();
 
         employeeContract.setAnnualLeaveDays(employeeContractRequest.getAnnualLeaveDays());
         employeeContract.setBasicSalary(employeeContractRequest.getBasicSalary());
-        employeeContract.setContractNo(employeeContractRequest.getContractNo());
         employeeContract.setCurrency(employeeContractRequest.getCurrency());
         employeeContract.setContractType(EmployeeContract.ContractType.valueOf(employeeContractRequest.getContractType()));
         employeeContract.setEmployee(employee);
@@ -91,11 +95,14 @@ public class EmployeeService {
         employeeContract.setWeeklyHours(employeeContractRequest.getWeeklyHours());
         employeeContract.setProbationMonths(employeeContractRequest.getProbationMonths());
         employeeContract.setStatus(EmployeeContract.ContractStatus.ACTIVE);
+        int contractYear = employeeContract.getStartDate().getYear();
+        employeeContract.setContractNo(String.format("CT-%d-%03d", contractYear, employee.getId()));
 
         employeeContractRepository.save(employeeContract);
         employeeRepository.save(employee);
         return employeeMapper.toResponse(employee);
     }
+
 
     // read all employees
     public List<EmployeeResponse> getEmployees() {
@@ -124,8 +131,8 @@ public class EmployeeService {
                     .orElseThrow(() -> new ResourceNotFoundException("Manager", employeeRequest.getManagerId()));
         }
 
-
-        employee.setEmpCode(employeeRequest.getEmpCode());
+        employeeRepository.save(employee);
+        employee.setEmpCode(String.format("EMP-%04d", employee.getId()));
         employee.setFullNameAr(employeeRequest.getFullNameAr());
         employee.setFullNameEn(employeeRequest.getFullNameEn());
         employee.setAddress(employeeRequest.getAddress());

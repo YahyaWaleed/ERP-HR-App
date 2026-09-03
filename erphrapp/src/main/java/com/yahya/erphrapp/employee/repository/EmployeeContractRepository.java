@@ -10,4 +10,6 @@ public interface EmployeeContractRepository extends JpaRepository<EmployeeContra
 
     List<EmployeeContract> findByEmployeeId(Long empId);
     Optional<EmployeeContract> findByEmployeeIdAndStatus(Long empId, EmployeeContract.ContractStatus contractStatus);
+
+    Optional<EmployeeContract> findTopByOrderByContractNoDesc(); // will use in automatically generating the empCode
 }
