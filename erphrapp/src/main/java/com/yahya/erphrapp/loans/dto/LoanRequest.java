@@ -24,7 +24,6 @@ public class LoanRequest {
     @NotNull
     private BigDecimal monthlyInstallment;
 
-    @NotNull
     private BigDecimal remainingBalance;
 
     @NotBlank
@@ -32,7 +31,6 @@ public class LoanRequest {
 
     private Long approvedById;
 
-    @NotBlank
     private String status;
 
     @NotNull
