@@ -85,4 +85,14 @@ public class ReportController {
     public List<ContractExpiringResponse> getContractsExpiring(@RequestParam(defaultValue = "12") int months) {
         return reportService.getContractsExpiring(months);
     }
+
+    @GetMapping("/top-attendance")
+    public List<TopAttendanceResponse> getTopAttendance(@RequestParam String periodCode) {
+        return reportService.getTopAttendance(periodCode);
+    }
+
+    @GetMapping("/top-net-salary")
+    public List<TopNetSalaryResponse> getTopNetSalary(@RequestParam String periodCode) {
+        return reportService.getTopNetSalary(periodCode);
+    }
 }

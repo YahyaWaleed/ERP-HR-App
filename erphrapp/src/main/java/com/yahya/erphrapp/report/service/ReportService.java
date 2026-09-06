@@ -231,4 +231,26 @@ public class ReportService {
             return d;
         }).toList();
     }
+
+    // function to find top attendance
+    public List<TopAttendanceResponse> getTopAttendance(String periodCode) {
+        return reportRepository.getTopAttendance(periodCode).stream().map(r -> {
+            TopAttendanceResponse d = new TopAttendanceResponse();
+            d.setEmpCode((String) r[0]);
+            d.setFullNameAr((String) r[1]);
+            d.setPresentDays((java.math.BigDecimal) r[2]);
+            return d;
+        }).toList();
+    }
+
+    // function to find top salaries
+    public List<TopNetSalaryResponse> getTopNetSalary(String periodCode) {
+        return reportRepository.getTopNetSalary(periodCode).stream().map(r -> {
+            TopNetSalaryResponse d = new TopNetSalaryResponse();
+            d.setEmpCode((String) r[0]);
+            d.setFullNameAr((String) r[1]);
+            d.setNetPay((java.math.BigDecimal) r[2]);
+            return d;
+        }).toList();
+    }
 }

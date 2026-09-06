@@ -249,4 +249,42 @@ public class ReportRepositoryImpl implements ReportRepository {
                 .setParameter("months", months)
                 .getResultList();
     }
+
+    @Override
+    public List<Object[]> getTopAttendance(String periodCode) {
+        return entityManager.createNativeQuery("""
+            SELECT e.emp_code,
+                   e.full_name_ar,
+                   a.present_days
+            FROM attendance_summary a
+            JOIN employees e
+                ON e.emp_id = a.emp_id
+            JOIN payroll_periods pp
+                ON pp.period_id = a.period_id
+            WHERE pp.period_code = :periodCode
+            ORDER BY a.present_days DESC
+            LIMIT 10
+            """)
+                .setParameter("periodCode", periodCode)
+                .getResultList();
+    }
+
+    @Override
+    public List<Object[]> getTopNetSalary(String periodCode) {
+        return entityManager.createNativeQuery("""
+            SELECT e.emp_code,
+                   e.full_name_ar,
+                   p.net_pay
+            FROM payslips p
+            JOIN employees e
+                ON e.emp_id = p.emp_id
+            JOIN payroll_periods pp
+                ON pp.period_id = p.period_id
+            WHERE pp.period_code = :periodCode
+            ORDER BY p.net_pay DESC
+            LIMIT 10
+            """)
+                .setParameter("periodCode", periodCode)
+                .getResultList();
+    }
 }
