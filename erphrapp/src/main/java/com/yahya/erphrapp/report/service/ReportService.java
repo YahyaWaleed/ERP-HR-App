@@ -26,7 +26,7 @@ public class ReportService {
             d.setEmpCode((String) r[0]);
             d.setFullNameAr((String) r[1]);
             d.setFullNameEn((String) r[2]);
-            d.setGender((String) r[3]);
+            d.setGender(String.valueOf(r[3]));
             d.setAge(((Number) r[4]).intValue());
             d.setDepartment((String) r[5]);
             d.setJobTitle((String) r[6]);
