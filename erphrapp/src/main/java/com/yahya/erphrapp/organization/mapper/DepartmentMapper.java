@@ -14,6 +14,7 @@ public interface DepartmentMapper {
 
     @Mapping(source = "branch.nameEn", target = "branchName")
     @Mapping(source = "parentDepartment.nameEn", target = "parentDeptName")
+    @Mapping(source = "costCenter", target = "costCenter")
     DepartmentResponse toResponse(Department department);
 
     Department toEntity(DepartmentRequest request);

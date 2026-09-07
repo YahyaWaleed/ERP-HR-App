@@ -11,6 +11,15 @@ public class DepartmentResponse {
     private boolean isActive;
     private String branchName;      // flattened, not the whole Branch object
     private String parentDeptName;
+    private String costCenter;
+
+    public String getCostCenter() {
+        return costCenter;
+    }
+
+    public void setCostCenter(String costCenter) {
+        this.costCenter = costCenter;
+    }
 
     public String getNameEn() {
         return nameEn;
