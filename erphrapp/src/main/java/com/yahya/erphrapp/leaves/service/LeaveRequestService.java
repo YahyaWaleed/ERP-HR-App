@@ -97,9 +97,9 @@ public class LeaveRequestService {
     }
 
     // approve a leave request
-    // approve a leave request
     @Transactional
     public void approveRequest(Long id) {
+
         LeaveRequest leaveRequest = leaveRequestRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Leave Request", id));
 
@@ -111,21 +111,23 @@ public class LeaveRequestService {
         Long typeId = leaveRequest.getLeaveType().getId();
         int fiscalYear = leaveRequest.getStartDate().getYear();
 
-        LeaveBalance balance = leaveBalanceRepository
-                .findByEmployeeIdAndLeaveTypeIdAndFiscalYear(empId, typeId, fiscalYear)
-                .orElseThrow(() -> new ResourceNotFoundException("Leave Balance", empId));
+        // Only check leave balance if this leave type affects the employee's balance
+        if (leaveRequest.getLeaveType().isAffectsBalance()) {
 
-        if (balance.getRemainingDays().compareTo(leaveRequest.getDaysCount()) < 0) {
-            throw new ConflictException("Employee does not have enough remaining leave balance for this request");
+            LeaveBalance balance = leaveBalanceRepository
+                    .findByEmployeeIdAndLeaveTypeIdAndFiscalYear(empId, typeId, fiscalYear)
+                    .orElseThrow(() -> new ResourceNotFoundException("Leave Balance", empId));
+
+            if (balance.getRemainingDays().compareTo(leaveRequest.getDaysCount()) < 0) {
+                throw new ConflictException(
+                        "Employee does not have enough remaining leave balance for this request"
+                );
+            }
         }
 
-        BigDecimal newUsedDays = balance.getUsedDays().add(leaveRequest.getDaysCount());
-        balance.setUsedDays(newUsedDays);
-        leaveBalanceRepository.save(balance);
-
+        // Approve the leave request
         leaveRequest.setStatus(LeaveRequest.LeaveStatus.APPROVED);
         leaveRequest.setDecidedOn(LocalDate.now());
-        // leaveRequest.setApprover(...) — still pending real Security/JWT
 
         leaveRequestRepository.save(leaveRequest);
     }

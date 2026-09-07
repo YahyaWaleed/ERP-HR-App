@@ -9,6 +9,10 @@ import com.yahya.erphrapp.employee.mapper.EmployeeMapper;
 import com.yahya.erphrapp.employee.repository.EmployeeContractRepository;
 import com.yahya.erphrapp.employee.repository.EmployeeRepository;
 import com.yahya.erphrapp.exception.ResourceNotFoundException;
+import com.yahya.erphrapp.leaves.entity.LeaveBalance;
+import com.yahya.erphrapp.leaves.entity.LeaveType;
+import com.yahya.erphrapp.leaves.repository.LeaveBalanceRepository;
+import com.yahya.erphrapp.leaves.repository.LeaveTypeRepository;
 import com.yahya.erphrapp.organization.entity.Branch;
 import com.yahya.erphrapp.organization.entity.Department;
 import com.yahya.erphrapp.organization.entity.JobTitle;
@@ -18,6 +22,7 @@ import com.yahya.erphrapp.organization.repository.JobTitleRepository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -31,9 +36,13 @@ public class EmployeeService {
     private final DepartmentRepository departmentRepository;
     private  final JobTitleRepository jobTitleRepository;
     private final EmployeeContractRepository employeeContractRepository;
+    private final LeaveBalanceRepository leaveBalanceRepository;
+    private final LeaveTypeRepository leaveTypeRepository;
 
-    public EmployeeService(EmployeeMapper employeeMapper, EmployeeRepository employeeRepository, BranchRepository branchRepository, DepartmentRepository departmentRepository, JobTitleRepository jobTitleRepository, EmployeeContractRepository employeeContractRepository) {
+    public EmployeeService(LeaveBalanceRepository leaveBalanceRepository, LeaveTypeRepository leaveTypeRepository, EmployeeMapper employeeMapper, EmployeeRepository employeeRepository, BranchRepository branchRepository, DepartmentRepository departmentRepository, JobTitleRepository jobTitleRepository, EmployeeContractRepository employeeContractRepository) {
         this.employeeMapper = employeeMapper;
+        this.leaveBalanceRepository = leaveBalanceRepository;
+        this.leaveTypeRepository = leaveTypeRepository;
         this.employeeRepository = employeeRepository;
         this.branchRepository = branchRepository;
         this.departmentRepository = departmentRepository;
@@ -99,6 +108,41 @@ public class EmployeeService {
         employeeContract.setContractNo(String.format("CT-%d-%03d", contractYear, employee.getId()));
 
         employeeContractRepository.save(employeeContract);
+
+        // create the leave balance for the new employee
+        List<LeaveType> leaveTypes = leaveTypeRepository.findAll();
+
+        for (LeaveType leaveType : leaveTypes) {
+
+            // only create balances for leave types that affect the balance
+            if (!leaveType.isAffectsBalance()) {
+                continue;
+            }
+
+            // check gender restriction
+            if (!leaveType.getGenderRestriction().equals("ANY")
+                    && !leaveType.getGenderRestriction().equals(employee.getGender().toString())) {
+                continue;
+            }
+
+            LeaveBalance balance = new LeaveBalance();
+
+            balance.setEmployee(employee);
+            balance.setLeaveType(leaveType);
+            balance.setFiscalYear(employeeContract.getStartDate().getYear());
+
+            // Annual Leave uses the employee's contract entitlement
+            if (leaveType.getCode().equals("ANN")) {
+                balance.setEntitledDays(BigDecimal.valueOf(employeeContract.getAnnualLeaveDays()));
+            } else {
+                balance.setEntitledDays(BigDecimal.valueOf(leaveType.getAnnualQuota()));
+            }
+
+            balance.setCarriedForward(BigDecimal.ZERO);
+            balance.setUsedDays(BigDecimal.ZERO);
+
+            leaveBalanceRepository.save(balance);
+        }
         employeeRepository.save(employee);
         return employeeMapper.toResponse(employee);
     }
@@ -165,4 +209,6 @@ public class EmployeeService {
         employee.setEmpStatus(Employee.EmployeeStatus.TERMINATED);
         employeeRepository.save(employee);
     }
+
+
 }
