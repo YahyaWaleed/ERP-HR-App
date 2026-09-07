@@ -10,5 +10,6 @@ public interface AttendanceSummaryMapper {
 
     @Mapping(source = "employee.id", target = "empId")
     @Mapping(source = "payrollPeriod.id", target = "periodId")
+    @Mapping(source = "payrollPeriod.periodCode", target = "periodCode")
     AttendanceSummaryResponse toResponse(AttendanceSummary attendanceSummary);
 }

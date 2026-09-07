@@ -11,9 +11,15 @@ public class AttendanceSummaryResponse {
     private BigDecimal paidLeaveDays;
     private BigDecimal unpaidAbsentDays;
     private BigDecimal overtimeHours;
-   private Integer lateMinutes;
+    private Integer lateMinutes;
+    private String periodCode;
+
 
    public AttendanceSummaryResponse() {};
+
+    public String getPeriodCode() { return periodCode; }
+    public void setPeriodCode(String periodCode) { this.periodCode = periodCode; }
+
 
     public Integer getId() {
         return id;
