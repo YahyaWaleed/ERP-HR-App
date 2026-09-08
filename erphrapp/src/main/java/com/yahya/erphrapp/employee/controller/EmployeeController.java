@@ -53,4 +53,24 @@ public class EmployeeController {
     public void terminateEmployee(@PathVariable Long id) {
         employeeService.terminateEmployee(id);
     }
+
+    // get all employees in one branch
+    @GetMapping("/branch/{branchId}")
+    public List<EmployeeResponse> getEmployeesByBranchId(@PathVariable Long branchId) {
+        return employeeService.getEmployeesByBranchId(branchId);
+    }
+
+    // get all employees in one department
+    @GetMapping("/department/{deptId}")
+    public List<EmployeeResponse> getEmployeesByDeptId(@PathVariable Long deptId) {
+        return employeeService.getEmployeesByDeptId(deptId);
+    }
+
+    // get all employees with same job title
+    @GetMapping("/job/{jobTitleId}")
+    public List<EmployeeResponse> getEmployeesByJobTitleId(@PathVariable Long jobTitleId) {
+        return employeeService.getEmployeesByJobTitleId(jobTitleId);
+    }
 }
+
+

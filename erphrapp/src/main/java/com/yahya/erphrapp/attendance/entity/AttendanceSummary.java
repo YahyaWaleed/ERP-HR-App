@@ -30,7 +30,7 @@ public class AttendanceSummary {
     private BigDecimal presentDays;
 
     @Column(name = "paid_leave_days")
-    private BigDecimal paidLeavesDays;
+    private BigDecimal paidLeaveDays;
 
     @Column(name = "unpaid_absent_days")
     private BigDecimal unpaidAbsentDays;
@@ -83,12 +83,12 @@ public class AttendanceSummary {
         this.presentDays = presentDays;
     }
 
-    public BigDecimal getPaidLeavesDays() {
-        return paidLeavesDays;
+    public BigDecimal getPaidLeaveDays() {
+        return paidLeaveDays;
     }
 
-    public void setPaidLeavesDays(BigDecimal paidLeavesDays) {
-        this.paidLeavesDays = paidLeavesDays;
+    public void setPaidLeaveDays(BigDecimal paidLeavesDays) {
+        this.paidLeaveDays = paidLeavesDays;
     }
 
     public BigDecimal getUnpaidAbsentDays() {

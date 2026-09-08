@@ -210,5 +210,28 @@ public class EmployeeService {
         employeeRepository.save(employee);
     }
 
+    // find all employees in one branch
+    public List<EmployeeResponse> getEmployeesByBranchId(Long branchId) {
+        return employeeRepository.findAllByBranchId(branchId)
+                .stream()
+                .map(employeeMapper::toResponse)
+                .toList();
+    }
+
+    // find all employees in a department
+    public List<EmployeeResponse> getEmployeesByDeptId(Long deptId) {
+        return employeeRepository.findAllByDepartmentId(deptId)
+                .stream()
+                .map(employeeMapper::toResponse)
+                .toList();
+    }
+
+    // find all employees with same job title
+    public List<EmployeeResponse> getEmployeesByJobTitleId(Long jobTitleId) {
+        return employeeRepository.findAllByJobTitleId(jobTitleId)
+                .stream()
+                .map(employeeMapper::toResponse)
+                .toList();
+    }
 
 }
